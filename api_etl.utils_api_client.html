@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>api_etl.utils_api_client module &mdash; api_transilien_doc  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="api_transilien_doc  documentation" href="index.html"/>
+        <link rel="next" title="api_etl.utils_misc module" href="api_etl.utils_misc.html"/>
+        <link rel="prev" title="api_etl.utils_dynamo module" href="api_etl.utils_dynamo.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> api_transilien_doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Main modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api_etl.extract_api.html">api_etl.extract_api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.extract_schedule.html">api_etl.extract_schedule module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.query_schedule.html">api_etl.query_schedule module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_dynamo.html">api_etl.utils_dynamo module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">api_etl.utils_api_client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.html">api_etl package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">api_transilien_doc</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>api_etl.utils_api_client module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/api_etl.utils_api_client.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-api_etl.utils_api_client">
+<span id="api-etl-utils-api-client-module"></span><h1>api_etl.utils_api_client module<a class="headerlink" href="#module-api_etl.utils_api_client" title="Permalink to this headline">¶</a></h1>
+<p>Module used to query Transilien&#8217;s API.</p>
+<dl class="class">
+<dt id="api_etl.utils_api_client.ApiClient">
+<em class="property">class </em><code class="descclassname">api_etl.utils_api_client.</code><code class="descname">ApiClient</code><span class="sig-paren">(</span><em>user='****'</em>, <em>password='****'</em>, <em>retry_timeout=20</em>, <em>core_url='http://api.transilien.com/'</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_api_client.ApiClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class provide a client to process requests to transilien&#8217;s API.
+It provides methods to process either single queries, or asynchronous batch queries that rely on asyncio library.</p>
+<dl class="method">
+<dt id="api_etl.utils_api_client.ApiClient.request_station">
+<code class="descname">request_station</code><span class="sig-paren">(</span><em>station</em>, <em>verbose=False</em>, <em>extra_params=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_api_client.ApiClient.request_station" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method process a single query.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>station</strong> (<em>str/int (8 digits format)</em>) &#8211; station you want to query (8 digits format)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str (xml answer)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="api_etl.utils_api_client.ApiClient.request_stations">
+<code class="descname">request_stations</code><span class="sig-paren">(</span><em>station_list</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_api_client.ApiClient.request_stations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method process asynchronous batch queries. It will return answers with station ids so that you can identify stations answers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>station_list</strong> (<em>list of str</em>) &#8211; list of station_ids in the 8 digits format used by transilien&#8217;s API to identify stations (warning: different than station ids in GTFS files that are 7 digits).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of tuples (api_response, station_id)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_etl.utils_misc.html" class="btn btn-neutral float-right" title="api_etl.utils_misc module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api_etl.utils_dynamo.html" class="btn btn-neutral" title="api_etl.utils_dynamo module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Leonard Binet.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

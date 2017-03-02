@@ -1,0 +1,7 @@
+api_etl.settings module
+=======================
+
+.. automodule:: api_etl.settings
+    :members:
+    :undoc-members:
+    :show-inheritance:

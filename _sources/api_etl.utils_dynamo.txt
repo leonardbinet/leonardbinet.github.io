@@ -1,0 +1,7 @@
+api_etl.utils_dynamo module
+===========================
+
+.. automodule:: api_etl.utils_dynamo
+    :members:
+    :undoc-members:
+    :show-inheritance:

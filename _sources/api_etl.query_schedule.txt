@@ -1,0 +1,7 @@
+api_etl.query_schedule module
+=============================
+
+.. automodule:: api_etl.query_schedule
+    :members:
+    :undoc-members:
+    :show-inheritance:

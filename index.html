@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Overview &mdash; api_transilien_doc  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="api_transilien_doc  documentation" href="#"/>
+        <link rel="next" title="api_etl.extract_api module" href="api_etl.extract_api.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> api_transilien_doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Main modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.extract_api.html">api_etl.extract_api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.extract_schedule.html">api_etl.extract_schedule module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.query_schedule.html">api_etl.query_schedule module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_dynamo.html">api_etl.utils_dynamo module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_api_client.html">api_etl.utils_api_client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.html">api_etl package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">api_transilien_doc</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Overview</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p>Hello, this documentation will detail how this ETL (Extract/Transform/Load) application works.</p>
+<p>This repository is part of a broader project with SNCF&#8217;s R&amp;D department to provide arrival time predictions for trains in Paris area.</p>
+<p>A <a class="reference external" href="https://github.com/leonardbinet/Salt-Vagrant-master-mode">repository</a> details how this project is deployed through Vagrant and Salt automation tools.</p>
+<p><a class="reference external" href="https://github.com/leonardbinet/SNCF_project_website">Another</a> details details how the website and the API built for this project work.</p>
+<img alt="_images/project_overview.png" src="_images/project_overview.png" />
+<p>Basically, this application is build around two tasks:</p>
+<div class="section" id="task-1-scheduled-departure-times-from-sncf-website-in-gtfs-format">
+<h2>Task 1: scheduled departure times (from SNCF website in GTFS format):<a class="headerlink" href="#task-1-scheduled-departure-times-from-sncf-website-in-gtfs-format" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>download schedules from SNCF website (csv format)</li>
+<li>save it in relational database (optionally)</li>
+<li>find each day which trips should pass, and at what time trains should pass in stations</li>
+<li>save it in Dynamo &#8216;scheduled_departures&#8217; table</li>
+</ul>
+</div>
+<div class="section" id="task-2-real-departure-times-from-transilien-s-api">
+<h2>Task 2: real departure times (from Transilien&#8217;s API)<a class="headerlink" href="#task-2-real-departure-times-from-transilien-s-api" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>extract data from transilien&#8217;s api</li>
+<li>transform XML received by api into json serializable objects</li>
+<li>query Dynamo &#8216;scheduled_departures&#8217; table (can also query Postgres, but is much slower) to find out for each train predicted to arrive in a station, which trip_id is linked, and at what time it was scheduled to arrive.</li>
+<li>enrich these objects</li>
+<li>save it in Dynamo &#8216;real_departures&#8217; table</li>
+</ul>
+<div class="section" id="performances">
+<h3>Performances:<a class="headerlink" href="#performances" title="Permalink to this headline">¶</a></h3>
+<p>Task 2 is scheduled every two minutes, to not exceed our limitations on transilien&#8217;s API.</p>
+<p>But the operation could be much faster.</p>
+<p>For instance: when extracting information for 300 stations:</p>
+<ul class="simple">
+<li>300 http calls to API are made asynchronously (single-threaded thanks to asyncio) and answer in less than 1 seconds.</li>
+<li>the around 6000 items we receive (about 20/call) are then enriched in less than a second</li>
+<li>it takes around 2 seconds to send 6000 requests (asynchronously again) to DynamoDB &#8216;scheduled_departures&#8217; table to get their trip_ids and scheduled departure times (plus some more information about trips)</li>
+<li>it takes one more second to save those 6000 items in &#8216;real_departures&#8217; table</li>
+</ul>
+<p>So we could easily and without any problem launch this task every 10 seconds!</p>
+<div class="toctree-wrapper compound" id="id1">
+<span id="main-modules"></span><p class="caption"><span class="caption-text">Main modules</span><a class="headerlink" href="#id1" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.extract_api.html">api_etl.extract_api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.extract_schedule.html">api_etl.extract_schedule module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.query_schedule.html">api_etl.query_schedule module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_dynamo.html">api_etl.utils_dynamo module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_api_client.html">api_etl.utils_api_client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="all-modules">
+<p class="caption"><span class="caption-text">All modules:</span><a class="headerlink" href="#all-modules" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.html">api_etl package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_etl.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_etl.html#module-api_etl">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_etl.extract_api.html" class="btn btn-neutral float-right" title="api_etl.extract_api module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Leonard Binet.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>api_etl.extract_api module &mdash; api_transilien_doc  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="api_transilien_doc  documentation" href="index.html"/>
+        <link rel="next" title="api_etl.extract_schedule module" href="api_etl.extract_schedule.html"/>
+        <link rel="prev" title="Overview" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> api_transilien_doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Main modules</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">api_etl.extract_api module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.extract_schedule.html">api_etl.extract_schedule module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.query_schedule.html">api_etl.query_schedule module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_dynamo.html">api_etl.utils_dynamo module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_api_client.html">api_etl.utils_api_client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_etl.html">api_etl package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">api_transilien_doc</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>api_etl.extract_api module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/api_etl.extract_api.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-api_etl.extract_api">
+<span id="api-etl-extract-api-module"></span><h1>api_etl.extract_api module<a class="headerlink" href="#module-api_etl.extract_api" title="Permalink to this headline">¶</a></h1>
+<p>Core module using other modules to:
+- extract data from the Transilien&#8217;s API (use utils_api_client)
+- update it with GTFS data (use query_schedule, if data was previously saved with extract_schedule)
+- save it in databases, Mongo or/and Dynamo (use utils_dynamo, utils_mongo)</p>
+<dl class="function">
+<dt id="api_etl.extract_api.extract_save_stations">
+<code class="descclassname">api_etl.extract_api.</code><code class="descname">extract_save_stations</code><span class="sig-paren">(</span><em>stations_list</em>, <em>dynamo_unique</em>, <em>mongo_unique</em>, <em>mongo_all</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.extract_save_stations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function performs the following operations:
+- query transilien&#8217;s api for the requested stations
+- transform xml answers into json-serializable items
+- update items with schedule information
+- save it in requested databases</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>stations_list</strong> (<em>list of str/int</em>) &#8211; these are the stations for which the transilien&#8217;s api will be queried. List of stations of length 8.</li>
+<li><strong>dynamo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
+<li><strong>mongo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
+<li><strong>mongo_all</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save all passages</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="api_etl.extract_api.extract_stations">
+<code class="descclassname">api_etl.extract_api.</code><code class="descname">extract_stations</code><span class="sig-paren">(</span><em>stations_list</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.extract_stations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will query transilien&#8217;s API asking for expected trains passages in near future on stations defined as paramater. Note that stations id required by api are in 8 digits format.</p>
+<p>This function will return clean data (json serializable), ready to be inserted in Mongo or Dynamo databases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stations_list</strong> (<em>list of str/int</em>) &#8211; these are the stations for which the transilien&#8217;s api will be queried. List of stations of length 8.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of dictionnaries (of strings)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="api_etl.extract_api.operate_multiple_cycles">
+<code class="descclassname">api_etl.extract_api.</code><code class="descname">operate_multiple_cycles</code><span class="sig-paren">(</span><em>station_filter=False</em>, <em>cycle_time_sec=1200</em>, <em>stop_time_sec=3600</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.operate_multiple_cycles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated: a cron job is scheduled to run operate_one_cycle every &#8216;n&#8217; minutes.</p>
+<p>This function performs the operate_one_cycle operation every &#8216;cycle_time_sec&#8217; seconds (default 10 minutes), during the time defined as &#8216;stop_time_sec&#8217; (default 60 minutes).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>station_filter</strong> (<em>list of str/int OR False</em>) &#8211; default to False. If no filter, the function will take all stations provided by the get_station_ids function. If set to list, these are the stations for which the transilien&#8217;s api will be queried. List of stations of length 8.</li>
+<li><strong>cycle_time_sec</strong> (<em>int</em>) &#8211; number of seconds between each cycle beginning.</li>
+<li><strong>stop_time_sec</strong> (<em>int</em>) &#8211; number of seconds until a new cycle cannot begin.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="api_etl.extract_api.operate_one_cycle">
+<code class="descclassname">api_etl.extract_api.</code><code class="descname">operate_one_cycle</code><span class="sig-paren">(</span><em>station_filter=False</em>, <em>dynamo_unique=True</em>, <em>mongo_unique=False</em>, <em>mongo_all=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.operate_one_cycle" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function performs the extract_save_stations operation in two steps. First half of stations, then second half of stations. This is made so that we do not exceed transilien&#8217;s api max requests per minute (350/min).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>station_filter</strong> (<em>list of str/int OR False</em>) &#8211; default to False. If no filter, the function will take all stations provided by the get_station_ids function. If set to list, these are the stations for which the transilien&#8217;s api will be queried. List of stations of length 8.</li>
+<li><strong>dynamo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
+<li><strong>mongo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
+<li><strong>mongo_all</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save all passages</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="api_etl.extract_api.save_stations">
+<code class="descclassname">api_etl.extract_api.</code><code class="descname">save_stations</code><span class="sig-paren">(</span><em>items_list</em>, <em>dynamo_unique</em>, <em>mongo_unique</em>, <em>mongo_all</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.save_stations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will save in the specified databases, with uniqueness or not, the items provided as parameter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>items_list</strong> &#8211; the items you want to save. They must be in relevant format, and contain fields that are used as primary fields.</li>
+<li><strong>dynamo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
+<li><strong>mongo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
+<li><strong>mongo_all</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save all passages</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="api_etl.extract_api.xml_to_json_item_list">
+<code class="descclassname">api_etl.extract_api.</code><code class="descname">xml_to_json_item_list</code><span class="sig-paren">(</span><em>xml_string</em>, <em>station</em>, <em>df_format=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.xml_to_json_item_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function transforms transilien&#8217;s API XML answers into a list of objects, in a valid format.
+It might be useful to use a class to define object structure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>xml_string</strong> (<em>string</em>) &#8211; XML string you want to transform</li>
+<li><strong>station</strong> (<em>string/integer</em>) &#8211; station id that was queried. This is necessary to add a station field in output. This must be a 8 digits string or integer. You can find the stations ids on SNCF website. <a class="reference external" href="https://ressources.data.sncf.com/explore/dataset/referentiel-gares-voyageurs/">https://ressources.data.sncf.com/explore/dataset/referentiel-gares-voyageurs/</a></li>
+<li><strong>df_format</strong> (<em>boolean</em>) &#8211; default False, set True so that the function returns a pandas dataframe instead of a list of dictionnaries.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dictionnaries of strings only, this is json-serializable so it can easily be inserted in Mongo or Dynamo databases.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_etl.extract_schedule.html" class="btn btn-neutral float-right" title="api_etl.extract_schedule module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Overview" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Leonard Binet.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
