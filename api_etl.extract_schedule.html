@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="api_transilien_doc  documentation" href="index.html"/>
         <link rel="next" title="api_etl.query_schedule module" href="api_etl.query_schedule.html"/>
         <link rel="prev" title="api_etl.extract_api module" href="api_etl.extract_api.html"/> 
@@ -123,7 +126,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/api_etl.extract_schedule.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/api_etl.extract_schedule.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -136,38 +139,18 @@
   <div class="section" id="module-api_etl.extract_schedule">
 <span id="api-etl-extract-schedule-module"></span><h1>api_etl.extract_schedule module<a class="headerlink" href="#module-api_etl.extract_schedule" title="Permalink to this headline">¶</a></h1>
 <p>Module used to download from SNCF website trains schedules and save it in the right format in different databases (Dynamo or relational database)</p>
-<dl class="function">
-<dt id="api_etl.extract_schedule.build_stop_times_ext_df">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">build_stop_times_ext_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.build_stop_times_ext_df" title="Permalink to this definition">¶</a></dt>
-<dd><p>DEPRECATED</p>
-<p>Build stop times extended dataframe out of:
-- trips
-- calendar
-- stop_times
-- stops
-Adds column:
-- train_num out of trip_id
-- station_id out of stop_id
-Clean:
-- remove NaN values</p>
-</dd></dl>
+<dl class="class">
+<dt id="api_etl.extract_schedule.ScheduleExtractor">
+<em class="property">class </em><code class="descclassname">api_etl.extract_schedule.</code><code class="descname">ScheduleExtractor</code><span class="sig-paren">(</span><em>yyyymmdd</em>, <em>data_folder=None</em>, <em>schedule_url=None</em>, <em>dynamo_table=None</em>, <em>read_on=None</em>, <em>write_on=None</em>, <em>read_off=None</em>, <em>write_off=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="api_etl.extract_schedule.ScheduleExtractor.build_all_departures">
+<code class="descname">build_all_departures</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor.build_all_departures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="function">
-<dt id="api_etl.extract_schedule.build_trips_ext_df">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">build_trips_ext_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.build_trips_ext_df" title="Permalink to this definition">¶</a></dt>
-<dd><p>DEPRECATED</p>
-<p>Build trips extended dataframe out of:
-- trips
-- calendar
-Adds column:
-- train_num out of trip_id
-Clean:
-- remove NaN values</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.extract_schedule.download_gtfs_files">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">download_gtfs_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.download_gtfs_files" title="Permalink to this definition">¶</a></dt>
+<dl class="method">
+<dt id="api_etl.extract_schedule.ScheduleExtractor.download_gtfs_files">
+<code class="descname">download_gtfs_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor.download_gtfs_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download gtfs files from SNCF website (based on URL defined in settings module) and saves it in data folder (defined as well in settings module). There is no paramater to pass.</p>
 <p>Process is in two steps:
 - first: download csv file containing links to zip files
@@ -184,119 +167,16 @@ Clean:
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="api_etl.extract_schedule.dynamo_save_stop_times_of_day">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">dynamo_save_stop_times_of_day</code><span class="sig-paren">(</span><em>yyyymmdd_format</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.dynamo_save_stop_times_of_day" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a date, this function will save all trip-ids scheduled on transilien&#8217;s network on this day in Dynamo&#8217;s &#8216;scheduled_departures&#8217; table.</p>
-<p>This function requires that gtfs files are present in data folder specified in settings module.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>yyyymmdd_format</strong> (<em>string or int</em>) &#8211; date on yyyymmdd format</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dl class="method">
+<dt id="api_etl.extract_schedule.ScheduleExtractor.dynamo_save_departures">
+<code class="descname">dynamo_save_departures</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor.dynamo_save_departures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="function">
-<dt id="api_etl.extract_schedule.dynamo_save_stop_times_of_day_adapt_provision">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">dynamo_save_stop_times_of_day_adapt_provision</code><span class="sig-paren">(</span><em>yyyymmdd_format</em>, <em>ignore_fail=True</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.dynamo_save_stop_times_of_day_adapt_provision" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a date, this function will first update Dynamo&#8217;s &#8220;scheduled_departures&#8221; table provisioned throughput to be able to save data in less than 30 minutes.</p>
-<p>Then it will save all trip-ids scheduled on transilien&#8217;s network on this day in Dynamo&#8217;s table.</p>
-<p>Finally it update table provisioned throughput to a lower value on write operations.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>yyyymmdd_format</strong> (<em>string or int</em>) &#8211; date on yyyymmdd format</li>
-<li><strong>ignore_fail</strong> (<em>boolean</em>) &#8211; default True. If you try to update provisioned throughput to existing values, it will raise an error. It is not a problem, so you might want to ignore this error.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dl class="method">
+<dt id="api_etl.extract_schedule.ScheduleExtractor.dynamo_save_departures_and_provision">
+<code class="descname">dynamo_save_departures_and_provision</code><span class="sig-paren">(</span><em>low_afterwards=True</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor.dynamo_save_departures_and_provision" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="function">
-<dt id="api_etl.extract_schedule.get_departure_times_of_day_json_list">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">get_departure_times_of_day_json_list</code><span class="sig-paren">(</span><em>yyyymmdd_format</em>, <em>stop_filter=None</em>, <em>station_filter=None</em>, <em>df_format=False</em>, <em>dropna_index=True</em>, <em>drop_dup=True</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.get_departure_times_of_day_json_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a date, this function will return all trip-ids scheduled on transilien&#8217;s network on this day.</p>
-<p>This function requires that gtfs files are present in data folder specified in settings module.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>yyyymmdd_format</strong> (<em>string or int</em>) &#8211; date on yyyymmdd format</li>
-<li><strong>stop_filter</strong> (<em>None/False or list of valid stops_ids</em>) &#8211; default None. If set, should be a list of stops for which you want to obtain stop times scheduled on this day. Otherwise, if set to False or None, it will get all stops without restrictions on stations.</li>
-<li><strong>station_filter</strong> (<em>None/False or list of valid station_filter</em>) &#8211; default None. If set, should be a list of station ids for which you want to obtain stop times scheduled on this day. Otherwise, if set to False or None, it will get all stops without restrictions on stations.</li>
-<li><strong>df_format</strong> (<em>boolean</em>) &#8211; default False. If set to True, will return a pandas dataframe</li>
-<li><strong>dropna_index</strong> (<em>boolean</em>) &#8211; default True. If True, it will drop all rows where the index fields (&#8220;station_id&#8221;, &#8220;day_train_num&#8221;) might have NaN values. Do not set to False in production since the items with no such fields will raise errors when trying to save on tables with primary keys on these fields. The purpose of this function is to facilitate schedule investigation.</li>
-<li><strong>drop_dup</strong> (<em>boolean</em>) &#8211; default True. If True, it will drop all duplicates based on index fields (&#8220;station_id&#8221;, &#8220;day_train_num&#8221;). There should not be duplicates given the GTFS structure. This parameter is just here for investigation.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of json serializable objects, or pandas dataframe if df_format is set to True</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.extract_schedule.get_services_of_day">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">get_services_of_day</code><span class="sig-paren">(</span><em>yyyymmdd_format</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.get_services_of_day" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a date, this function will return all service-ids scheduled on transilien&#8217;s network on this day.</p>
-<p>This function requires that gtfs files are present in data folder specified in settings module.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>yyyymmdd_format</strong> (<em>string or int</em>) &#8211; date on yyyymmdd format</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.extract_schedule.get_trips_of_day">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">get_trips_of_day</code><span class="sig-paren">(</span><em>yyyymmdd_format</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.get_trips_of_day" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a date, this function will return all trip-ids scheduled on transilien&#8217;s network on this day.</p>
-<p>This function requires that gtfs files are present in data folder specified in settings module.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>yyyymmdd_format</strong> (<em>string or int</em>) &#8211; date on yyyymmdd format</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.extract_schedule.save_all_schedule_tables_rdb">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">save_all_schedule_tables_rdb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.save_all_schedule_tables_rdb" title="Permalink to this definition">¶</a></dt>
-<dd><p>DEPRECATED</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.extract_schedule.save_stop_times_extended_rdb">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">save_stop_times_extended_rdb</code><span class="sig-paren">(</span><em>dryrun=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.save_stop_times_extended_rdb" title="Permalink to this definition">¶</a></dt>
-<dd><p>DEPRECATED</p>
-<p>Save stop_times_ext table</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.extract_schedule.save_trips_extended_rdb">
-<code class="descclassname">api_etl.extract_schedule.</code><code class="descname">save_trips_extended_rdb</code><span class="sig-paren">(</span><em>dryrun=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.save_trips_extended_rdb" title="Permalink to this definition">¶</a></dt>
-<dd><p>DEPRECATED</p>
-<p>Save trips_ext table</p>
 </dd></dl>
 
 </div>

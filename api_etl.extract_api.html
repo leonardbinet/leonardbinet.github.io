@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="api_transilien_doc  documentation" href="index.html"/>
         <link rel="next" title="api_etl.extract_schedule module" href="api_etl.extract_schedule.html"/>
         <link rel="prev" title="Overview" href="index.html"/> 
@@ -123,7 +126,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/api_etl.extract_api.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/api_etl.extract_api.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -139,21 +142,40 @@
 - extract data from the Transilien&#8217;s API (use utils_api_client)
 - update it with GTFS data (use query_schedule, if data was previously saved with extract_schedule)
 - save it in databases, Mongo or/and Dynamo (use utils_dynamo, utils_mongo)</p>
-<dl class="function">
-<dt id="api_etl.extract_api.extract_save_stations">
-<code class="descclassname">api_etl.extract_api.</code><code class="descname">extract_save_stations</code><span class="sig-paren">(</span><em>stations_list</em>, <em>dynamo_unique</em>, <em>mongo_unique</em>, <em>mongo_all</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.extract_save_stations" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function performs the following operations:
-- query transilien&#8217;s api for the requested stations
-- transform xml answers into json-serializable items
-- update items with schedule information
-- save it in requested databases</p>
+<dl class="class">
+<dt id="api_etl.extract_api.ApiExtractor">
+<em class="property">class </em><code class="descclassname">api_etl.extract_api.</code><code class="descname">ApiExtractor</code><span class="sig-paren">(</span><em>stations</em>, <em>max_per_minute=350</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.ApiExtractor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Made for unique usage</p>
+<dl class="method">
+<dt id="api_etl.extract_api.ApiExtractor.extend_data_with_schedule">
+<code class="descname">extend_data_with_schedule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.ApiExtractor.extend_data_with_schedule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api_etl.extract_api.ApiExtractor.request_api_for_stations">
+<code class="descname">request_api_for_stations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.ApiExtractor.request_api_for_stations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will query transilien&#8217;s API asking for expected trains passages in near future on stations defined as paramater, and parse responses so that it can be saved in databases.</p>
+<p>Note that stations id required by api are in 8 digits format.</p>
+<p>Note also that the maximum queries per minute accepted by the API is 350.</p>
+<p>This function will save responses in &#8220;raw_responses&#8221; attribute, each response being a tuple (string response, station).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="api_etl.extract_api.ApiExtractor.save_in_dynamo">
+<code class="descname">save_in_dynamo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.ApiExtractor.save_in_dynamo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves objects in dynamo database.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="api_etl.extract_api.ApiExtractor.save_in_mongo">
+<code class="descname">save_in_mongo</code><span class="sig-paren">(</span><em>mongo_unique</em>, <em>mongo_all</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.ApiExtractor.save_in_mongo" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will save items in Mongo.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>stations_list</strong> (<em>list of str/int</em>) &#8211; these are the stations for which the transilien&#8217;s api will be queried. List of stations of length 8.</li>
-<li><strong>dynamo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
 <li><strong>mongo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
 <li><strong>mongo_all</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save all passages</li>
 </ul>
@@ -163,21 +185,6 @@
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="api_etl.extract_api.extract_stations">
-<code class="descclassname">api_etl.extract_api.</code><code class="descname">extract_stations</code><span class="sig-paren">(</span><em>stations_list</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.extract_stations" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will query transilien&#8217;s API asking for expected trains passages in near future on stations defined as paramater. Note that stations id required by api are in 8 digits format.</p>
-<p>This function will return clean data (json serializable), ready to be inserted in Mongo or Dynamo databases.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stations_list</strong> (<em>list of str/int</em>) &#8211; these are the stations for which the transilien&#8217;s api will be queried. List of stations of length 8.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of dictionnaries (of strings)</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="function">
@@ -214,49 +221,6 @@
 <li><strong>mongo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
 <li><strong>mongo_all</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save all passages</li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.extract_api.save_stations">
-<code class="descclassname">api_etl.extract_api.</code><code class="descname">save_stations</code><span class="sig-paren">(</span><em>items_list</em>, <em>dynamo_unique</em>, <em>mongo_unique</em>, <em>mongo_all</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.save_stations" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will save in the specified databases, with uniqueness or not, the items provided as parameter.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>items_list</strong> &#8211; the items you want to save. They must be in relevant format, and contain fields that are used as primary fields.</li>
-<li><strong>dynamo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
-<li><strong>mongo_unique</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save unique passages</li>
-<li><strong>mongo_all</strong> (<em>boolean</em>) &#8211; save items in dynamo table that save all passages</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.extract_api.xml_to_json_item_list">
-<code class="descclassname">api_etl.extract_api.</code><code class="descname">xml_to_json_item_list</code><span class="sig-paren">(</span><em>xml_string</em>, <em>station</em>, <em>df_format=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_api.xml_to_json_item_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function transforms transilien&#8217;s API XML answers into a list of objects, in a valid format.
-It might be useful to use a class to define object structure.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>xml_string</strong> (<em>string</em>) &#8211; XML string you want to transform</li>
-<li><strong>station</strong> (<em>string/integer</em>) &#8211; station id that was queried. This is necessary to add a station field in output. This must be a 8 digits string or integer. You can find the stations ids on SNCF website. <a class="reference external" href="https://ressources.data.sncf.com/explore/dataset/referentiel-gares-voyageurs/">https://ressources.data.sncf.com/explore/dataset/referentiel-gares-voyageurs/</a></li>
-<li><strong>df_format</strong> (<em>boolean</em>) &#8211; default False, set True so that the function returns a pandas dataframe instead of a list of dictionnaries.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dictionnaries of strings only, this is json-serializable so it can easily be inserted in Mongo or Dynamo databases.</p>
 </td>
 </tr>
 </tbody>
