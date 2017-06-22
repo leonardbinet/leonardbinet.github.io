@@ -8,7 +8,6 @@ Submodules
 
    api_etl.extract_api
    api_etl.extract_schedule
-   api_etl.match_ids
    api_etl.query_schedule
    api_etl.settings
    api_etl.utils_api_client

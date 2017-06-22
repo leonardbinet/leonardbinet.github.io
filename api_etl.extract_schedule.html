@@ -30,9 +30,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="api_transilien_doc  documentation" href="index.html"/>
         <link rel="next" title="api_etl.query_schedule module" href="api_etl.query_schedule.html"/>
         <link rel="prev" title="api_etl.extract_api module" href="api_etl.extract_api.html"/> 
@@ -90,8 +87,24 @@
 <li class="toctree-l1"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
 </ul>
 <p class="caption"><span class="caption-text">All modules:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api_etl.html">api_etl package</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="api_etl.html">api_etl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api_etl.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api_etl.extract_api.html">api_etl.extract_api module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">api_etl.extract_schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.query_schedule.html">api_etl.query_schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.settings.html">api_etl.settings module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_api_client.html">api_etl.utils_api_client module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_dynamo.html">api_etl.utils_dynamo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_mongo.html">api_etl.utils_mongo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_rdb.html">api_etl.utils_rdb module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_secrets.html">api_etl.utils_secrets module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_etl.html#module-api_etl">Module contents</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -126,7 +139,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/api_etl.extract_schedule.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/api_etl.extract_schedule.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -136,49 +149,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-api_etl.extract_schedule">
-<span id="api-etl-extract-schedule-module"></span><h1>api_etl.extract_schedule module<a class="headerlink" href="#module-api_etl.extract_schedule" title="Permalink to this headline">¶</a></h1>
-<p>Module used to download from SNCF website trains schedules and save it in the right format in different databases (Dynamo or relational database)</p>
-<dl class="class">
-<dt id="api_etl.extract_schedule.ScheduleExtractor">
-<em class="property">class </em><code class="descclassname">api_etl.extract_schedule.</code><code class="descname">ScheduleExtractor</code><span class="sig-paren">(</span><em>yyyymmdd</em>, <em>data_folder=None</em>, <em>schedule_url=None</em>, <em>dynamo_table=None</em>, <em>read_on=None</em>, <em>write_on=None</em>, <em>read_off=None</em>, <em>write_off=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="api_etl.extract_schedule.ScheduleExtractor.build_all_departures">
-<code class="descname">build_all_departures</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor.build_all_departures" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="api_etl.extract_schedule.ScheduleExtractor.download_gtfs_files">
-<code class="descname">download_gtfs_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor.download_gtfs_files" title="Permalink to this definition">¶</a></dt>
-<dd><p>Download gtfs files from SNCF website (based on URL defined in settings module) and saves it in data folder (defined as well in settings module). There is no paramater to pass.</p>
-<p>Process is in two steps:
-- first: download csv file containing links to zip files
-- second: download files based on urls found in csv from first step</p>
-<p>Folder names in which files are unzip are based on the headers of the zip files.</p>
-<p>Function returns True if &#8216;gtfs-lines-last&#8217; folder has been found (this is the usual folder we use then to find schedules). Return False otherwise.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="api_etl.extract_schedule.ScheduleExtractor.dynamo_save_departures">
-<code class="descname">dynamo_save_departures</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor.dynamo_save_departures" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="api_etl.extract_schedule.ScheduleExtractor.dynamo_save_departures_and_provision">
-<code class="descname">dynamo_save_departures_and_provision</code><span class="sig-paren">(</span><em>low_afterwards=True</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.extract_schedule.ScheduleExtractor.dynamo_save_departures_and_provision" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="api-etl-extract-schedule-module">
+<h1>api_etl.extract_schedule module<a class="headerlink" href="#api-etl-extract-schedule-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

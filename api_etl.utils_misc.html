@@ -30,9 +30,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="api_transilien_doc  documentation" href="index.html"/>
         <link rel="next" title="api_etl package" href="api_etl.html"/>
         <link rel="prev" title="api_etl.utils_api_client module" href="api_etl.utils_api_client.html"/> 
@@ -90,8 +87,24 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">api_etl.utils_misc module</a></li>
 </ul>
 <p class="caption"><span class="caption-text">All modules:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api_etl.html">api_etl package</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="api_etl.html">api_etl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api_etl.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api_etl.extract_api.html">api_etl.extract_api module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.extract_schedule.html">api_etl.extract_schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.query_schedule.html">api_etl.query_schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.settings.html">api_etl.settings module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_api_client.html">api_etl.utils_api_client module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_dynamo.html">api_etl.utils_dynamo module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">api_etl.utils_misc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_mongo.html">api_etl.utils_mongo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_rdb.html">api_etl.utils_rdb module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_secrets.html">api_etl.utils_secrets module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_etl.html#module-api_etl">Module contents</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -126,7 +139,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/api_etl.utils_misc.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/api_etl.utils_misc.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -138,32 +151,111 @@
             
   <div class="section" id="module-api_etl.utils_misc">
 <span id="api-etl-utils-misc-module"></span><h1>api_etl.utils_misc module<a class="headerlink" href="#module-api_etl.utils_misc" title="Permalink to this headline">¶</a></h1>
-<p>Module containing some useful functions that might be used by all other modules.</p>
-<dl class="function">
-<dt id="api_etl.utils_misc.api_date_to_day_time_corrected">
-<code class="descclassname">api_etl.utils_misc.</code><code class="descname">api_date_to_day_time_corrected</code><span class="sig-paren">(</span><em>api_date</em>, <em>time_or_day</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.api_date_to_day_time_corrected" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that transform dates given by api in usable fields:
-- expected_passage_day : &#8220;20120523&#8221; format
-- expected_passage_time: &#8220;12:55:00&#8221; format</p>
-<p>Important: dates between 0 and 3 AM are transformed in +24h time format with day as previous day.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>api_date</strong> (<em>str</em>) &#8211; api date you want to transform</li>
-<li><strong>time_or_day</strong> (<em>str</em><em> (</em><em>&quot;time&quot;</em><em>, or </em><em>&quot;day&quot;</em><em>)</em><em></em>) &#8211; choose either &#8220;time&#8221; or &#8220;day&#8221;, do you want to get corrected day or time?</li>
+<p>Module containing some useful functions that might be used by all other
+modules.</p>
+<dl class="class">
+<dt id="api_etl.utils_misc.DateConverter">
+<em class="property">class </em><code class="descclassname">api_etl.utils_misc.</code><code class="descname">DateConverter</code><span class="sig-paren">(</span><em>dt=None</em>, <em>api_date=None</em>, <em>normal_date=None</em>, <em>normal_time=None</em>, <em>special_date=None</em>, <em>special_time=None</em>, <em>force_regular_date=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.DateConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="docutils">
+<dt>Class to convert dates from and to our special format, from and to api</dt>
+<dd>date format, and to and from our regular format:</dd>
+</dl>
+<ul class="simple">
+<li>api_format: &#8220;16/02/2017 01:26&#8221;</li>
+<li>normal date: &#8220;20170216&#8221;</li>
+<li>normal time: &#8220;01:26:00&#8221;</li>
+<li>special date: &#8220;20170215&#8221;</li>
+<li>special time: &#8220;25:26:00&#8221;</li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+<p>This class has also methods to compute delays</p>
+<dl class="method">
+<dt id="api_etl.utils_misc.DateConverter.compute_delay_from">
+<code class="descname">compute_delay_from</code><span class="sig-paren">(</span><em>dc=None</em>, <em>dt=None</em>, <em>api_date=None</em>, <em>normal_date=None</em>, <em>normal_time=None</em>, <em>special_date=None</em>, <em>special_time=None</em>, <em>force_regular_date=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.DateConverter.compute_delay_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create another DateConverter and compares datetimes
+Return in seconds the delay:
+- positive if this one &gt; &#8216;from&#8217; (delayed)
+- negative if this one &lt; &#8216;from&#8217; (advance)
+:param dc:
+:param dt:
+:param api_date:
+:param normal_date:
+:param normal_time:
+:param special_date:
+:param special_time:
+:param force_regular_date:</p>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api_etl.utils_misc.S3Bucket">
+<em class="property">class </em><code class="descclassname">api_etl.utils_misc.</code><code class="descname">S3Bucket</code><span class="sig-paren">(</span><em>name</em>, <em>create_if_absent=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.S3Bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="api_etl.utils_misc.S3Bucket.list_bucket_objects">
+<code class="descname">list_bucket_objects</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.S3Bucket.list_bucket_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api_etl.utils_misc.S3Bucket.send_file">
+<code class="descname">send_file</code><span class="sig-paren">(</span><em>file_path</em>, <em>file_name=None</em>, <em>delete=False</em>, <em>ignore_hidden=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.S3Bucket.send_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api_etl.utils_misc.S3Bucket.send_folder">
+<code class="descname">send_folder</code><span class="sig-paren">(</span><em>folder_path</em>, <em>folder_name=None</em>, <em>delete=False</em>, <em>ignore_hidden=True</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.S3Bucket.send_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Will keep same names for files inside folder.</p>
+<p>Note: in S3, there is no folder, just files with names as path.
+:param folder_path:
+:param folder_name:
+:param delete:
+:param ignore_hidden:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api_etl.utils_misc.StationProvider">
+<em class="property">class </em><code class="descclassname">api_etl.utils_misc.</code><code class="descname">StationProvider</code><a class="headerlink" href="#api_etl.utils_misc.StationProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class to easily get lists of stations in gtfs format (7 digits) or
+transilien&#8217;s format (8 digits).</p>
+<p>Warning: data sources have to be checked (&#8220;all&#8221; is ok, &#8220;top&#8221; is wrong).</p>
+<dl class="method">
+<dt id="api_etl.utils_misc.StationProvider.get_station_ids">
+<code class="descname">get_station_ids</code><span class="sig-paren">(</span><em>stations='all'</em>, <em>gtfs_format=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.StationProvider.get_station_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get stations ids either in API format (8 digits), or in GTFS format
+(7 digits).</p>
+<p>Beware, this function has to be more tested.
+Beware: two formats:
+- 8 digits format to query api
+- 7 digits format to query gtfs files
+:param stations:
+:param gtfs_format:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="api_etl.utils_misc.StationProvider.get_stations_per_line">
+<code class="descname">get_stations_per_line</code><span class="sig-paren">(</span><em>lines=None</em>, <em>uic7=False</em>, <em>full_df=False</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.StationProvider.get_stations_per_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get stations of given line (multiple lines possible)
+:param lines:
+:param uic7:
+:param full_df:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="api_etl.utils_misc.build_uri">
+<code class="descclassname">api_etl.utils_misc.</code><code class="descname">build_uri</code><span class="sig-paren">(</span><em>db_type</em>, <em>host</em>, <em>user=None</em>, <em>password=None</em>, <em>port=None</em>, <em>database=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.build_uri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="api_etl.utils_misc.chunks">
 <code class="descclassname">api_etl.utils_misc.</code><code class="descname">chunks</code><span class="sig-paren">(</span><em>l</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.chunks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Yield a list in &#8216;n&#8217; lists of nearly same size (some can be one more than others).</p>
+<dd><p>Yield a list in &#8216;n&#8217; lists of nearly same size (some can be one more than
+others).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -179,42 +271,33 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="api_etl.utils_misc.compute_delay">
-<code class="descclassname">api_etl.utils_misc.</code><code class="descname">compute_delay</code><span class="sig-paren">(</span><em>scheduled_departure_time</em>, <em>real_departure_time</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.compute_delay" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return in seconds the delay:
-- positive if real_time &gt; schedule time (delayed)
-- negative if real_time &lt; schedule time (advance)</p>
-<p>Return None if one value is not string</p>
-<p>Convert custom hours (after midnight) TODO</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="api_etl.utils_misc.get_paris_local_datetime_now">
-<code class="descclassname">api_etl.utils_misc.</code><code class="descname">get_paris_local_datetime_now</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.get_paris_local_datetime_now" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return paris local time (necessary for operations operated on other time zones)</p>
+<code class="descclassname">api_etl.utils_misc.</code><code class="descname">get_paris_local_datetime_now</code><span class="sig-paren">(</span><em>tz_naive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.get_paris_local_datetime_now" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return paris local time (necessary for operations operated on other time
+zones)
+:param tz_naive:</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="api_etl.utils_misc.get_responding_stations_from_sample">
 <code class="descclassname">api_etl.utils_misc.</code><code class="descname">get_responding_stations_from_sample</code><span class="sig-paren">(</span><em>sample_loc=None</em>, <em>write_loc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.get_responding_stations_from_sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function&#8217;s purpose is to write down responding stations from a given &#8220;real_departures&#8221; sample, and to write it down so it can be used to query only necessary stations (and avoid to spend API credits on unnecessary stations)</p>
+<dd><p>This function&#8217;s purpose is to write down responding stations from a given
+&#8220;real_departures&#8221; sample, and to write it down so it can be used to query
+only necessary stations (and avoid to spend API credits on unnecessary
+stations)
+:param sample_loc:
+:param write_loc:</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="api_etl.utils_misc.get_station_ids">
-<code class="descclassname">api_etl.utils_misc.</code><code class="descname">get_station_ids</code><span class="sig-paren">(</span><em>stations='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.get_station_ids" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get stations ids either in API format (8 digits), or in GTFS format (7 digits).</p>
-<p>Beware, this function has to be more tested.
-Beware: two formats:
-- 8 digits format to query api
-- 7 digits format to query gtfs files</p>
-</dd></dl>
+<dt id="api_etl.utils_misc.s3_ressource">
+<code class="descclassname">api_etl.utils_misc.</code><code class="descname">s3_ressource</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.s3_ressource" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="api_etl.utils_misc.set_logging_conf">
 <code class="descclassname">api_etl.utils_misc.</code><code class="descname">set_logging_conf</code><span class="sig-paren">(</span><em>log_name</em>, <em>level='INFO'</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_misc.set_logging_conf" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function sets the logging configuration.</p>
-</dd></dl>
+<dd></dd></dl>
 
 </div>
 

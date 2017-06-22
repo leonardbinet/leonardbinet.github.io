@@ -30,9 +30,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="api_transilien_doc  documentation" href="index.html"/>
         <link rel="next" title="api_etl.utils_api_client module" href="api_etl.utils_api_client.html"/>
         <link rel="prev" title="api_etl.query_schedule module" href="api_etl.query_schedule.html"/> 
@@ -90,8 +87,24 @@
 <li class="toctree-l1"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
 </ul>
 <p class="caption"><span class="caption-text">All modules:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api_etl.html">api_etl package</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="api_etl.html">api_etl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api_etl.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api_etl.extract_api.html">api_etl.extract_api module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.extract_schedule.html">api_etl.extract_schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.query_schedule.html">api_etl.query_schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.settings.html">api_etl.settings module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_api_client.html">api_etl.utils_api_client module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">api_etl.utils_dynamo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_mongo.html">api_etl.utils_mongo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_rdb.html">api_etl.utils_rdb module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_secrets.html">api_etl.utils_secrets module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_etl.html#module-api_etl">Module contents</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -126,7 +139,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/api_etl.utils_dynamo.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/api_etl.utils_dynamo.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -136,403 +149,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-api_etl.utils_dynamo">
-<span id="api-etl-utils-dynamo-module"></span><h1>api_etl.utils_dynamo module<a class="headerlink" href="#module-api_etl.utils_dynamo" title="Permalink to this headline">¶</a></h1>
-<p>Module used to interact with Dynamo databases.</p>
-<dl class="class">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture">
-<em class="property">class </em><code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">RealTimeDeparture</code><span class="sig-paren">(</span><em>hash_key=None</em>, <em>range_key=None</em>, <em>**attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pynamodb.models.Model</span></code></p>
-<dl class="exception">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><span class="sig-paren">(</span><em>msg=None</em>, <em>cause=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pynamodb.exceptions.DoesNotExist</span></code></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.Meta">
-<em class="property">class </em><code class="descclassname">RealTimeDeparture.</code><code class="descname">Meta</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.Meta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.Meta.base_backoff_ms">
-<code class="descname">base_backoff_ms</code><em class="property"> = 25</em><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.Meta.base_backoff_ms" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.Meta.host">
-<code class="descname">host</code><em class="property"> = None</em><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.Meta.host" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.Meta.max_retry_attempts">
-<code class="descname">max_retry_attempts</code><em class="property"> = 3</em><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.Meta.max_retry_attempts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.Meta.region">
-<code class="descname">region</code><em class="property"> = 'eu-west-1'</em><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.Meta.region" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.Meta.request_timeout_seconds">
-<code class="descname">request_timeout_seconds</code><em class="property"> = 60</em><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.Meta.request_timeout_seconds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.Meta.session_cls">
-<code class="descname">session_cls</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.Meta.session_cls" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Session</span></code></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.Meta.table_name">
-<code class="descname">table_name</code><em class="property"> = 'real_departures_2'</em><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.Meta.table_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.data_freshness">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">data_freshness</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.data_freshness" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.date">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">date</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.date" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.day_train_num">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">day_train_num</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.day_train_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.expected_passage_day">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">expected_passage_day</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.expected_passage_day" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.expected_passage_time">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">expected_passage_time</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.expected_passage_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.miss">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">miss</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.miss" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.request_day">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">request_day</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.request_day" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.request_time">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">request_time</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.request_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.station_8d">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">station_8d</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.station_8d" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.station_id">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">station_id</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.station_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.term">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">term</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.term" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.RealTimeDeparture.train_num">
-<code class="descclassname">RealTimeDeparture.</code><code class="descname">train_num</code><a class="headerlink" href="#api_etl.utils_dynamo.RealTimeDeparture.train_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture">
-<em class="property">class </em><code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">ScheduledDeparture</code><span class="sig-paren">(</span><em>hash_key=None</em>, <em>range_key=None</em>, <em>**attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pynamodb.models.Model</span></code></p>
-<dl class="exception">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><span class="sig-paren">(</span><em>msg=None</em>, <em>cause=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pynamodb.exceptions.DoesNotExist</span></code></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.Meta">
-<em class="property">class </em><code class="descclassname">ScheduledDeparture.</code><code class="descname">Meta</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.Meta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.Meta.base_backoff_ms">
-<code class="descname">base_backoff_ms</code><em class="property"> = 25</em><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.Meta.base_backoff_ms" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.Meta.host">
-<code class="descname">host</code><em class="property"> = None</em><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.Meta.host" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.Meta.max_retry_attempts">
-<code class="descname">max_retry_attempts</code><em class="property"> = 3</em><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.Meta.max_retry_attempts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.Meta.region">
-<code class="descname">region</code><em class="property"> = 'eu-west-1'</em><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.Meta.region" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.Meta.request_timeout_seconds">
-<code class="descname">request_timeout_seconds</code><em class="property"> = 60</em><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.Meta.request_timeout_seconds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.Meta.session_cls">
-<code class="descname">session_cls</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.Meta.session_cls" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Session</span></code></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.Meta.table_name">
-<code class="descname">table_name</code><em class="property"> = 'scheduled_departures'</em><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.Meta.table_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.arrival_time">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">arrival_time</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.arrival_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.block_id">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">block_id</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.block_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.day_train_num">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">day_train_num</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.day_train_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.direction_id">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">direction_id</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.direction_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.drop_off_type">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">drop_off_type</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.drop_off_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.pickup_type">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">pickup_type</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.pickup_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.route_id">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">route_id</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.route_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.route_short_name">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">route_short_name</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.route_short_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.scheduled_departure_day">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">scheduled_departure_day</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.scheduled_departure_day" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.scheduled_departure_time">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">scheduled_departure_time</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.scheduled_departure_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.service_id">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">service_id</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.service_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.station_id">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">station_id</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.station_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.stop_headsign">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">stop_headsign</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.stop_headsign" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.stop_id">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">stop_id</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.stop_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.stop_sequence">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">stop_sequence</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.stop_sequence" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.train_num">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">train_num</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.train_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.trip_headsign">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">trip_headsign</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.trip_headsign" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="api_etl.utils_dynamo.ScheduledDeparture.trip_id">
-<code class="descclassname">ScheduledDeparture.</code><code class="descname">trip_id</code><a class="headerlink" href="#api_etl.utils_dynamo.ScheduledDeparture.trip_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicode attribute</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.utils_dynamo.dynamo_create_real_departures_table">
-<code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">dynamo_create_real_departures_table</code><span class="sig-paren">(</span><em>table_name</em>, <em>read=5</em>, <em>write=5</em>, <em>hash_key='day_station'</em>, <em>range_key='expected_passage_day'</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.dynamo_create_real_departures_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a table in Dynamo with given hash and range keys, with provisioned throughput given in parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>table_name</strong> (<em>str</em>) &#8211; table name</li>
-<li><strong>read</strong> (<em>int</em>) &#8211; table read provisioned throughput</li>
-<li><strong>write</strong> (<em>int</em>) &#8211; table write provisioned throughput</li>
-<li><strong>hash_key</strong> (<em>str</em>) &#8211; table Hash Key</li>
-<li><strong>range_key</strong> (<em>str</em>) &#8211; table Range Key</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.utils_dynamo.dynamo_extract_whole_table">
-<code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">dynamo_extract_whole_table</code><span class="sig-paren">(</span><em>table_name</em>, <em>max_req=100</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.dynamo_extract_whole_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract content of a dynamo table. With limit of &#8220;max_req&#8221; requests.
-Returns a dataframe.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>table_name</strong> (<em>str</em>) &#8211; table name</li>
-<li><strong>max_req</strong> (<em>int</em>) &#8211; maximum number of requests</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pandas dataframe</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.utils_dynamo.dynamo_get_client">
-<code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">dynamo_get_client</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.dynamo_get_client" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return Dynamo client (credentials already set up)</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.utils_dynamo.dynamo_get_table">
-<code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">dynamo_get_table</code><span class="sig-paren">(</span><em>table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.dynamo_get_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a Dynamo table object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table_name</strong> (<em>str</em>) &#8211; table name</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.utils_dynamo.dynamo_get_table_provisionned_capacity">
-<code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">dynamo_get_table_provisionned_capacity</code><span class="sig-paren">(</span><em>table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.dynamo_get_table_provisionned_capacity" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returns a given table provisioned throughput. Returns (read, write)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table_name</strong> (<em>str</em>) &#8211; table name</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="api_etl.utils_dynamo.dynamo_insert_batches">
-<code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">dynamo_insert_batches</code><span class="sig-paren">(</span><em>items_list</em>, <em>table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.dynamo_insert_batches" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="api_etl.utils_dynamo.dynamo_submit_batch_getitem_request">
-<code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">dynamo_submit_batch_getitem_request</code><span class="sig-paren">(</span><em>items_keys</em>, <em>table_name</em>, <em>max_retry=3</em>, <em>prev_resp=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.dynamo_submit_batch_getitem_request" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="api_etl.utils_dynamo.dynamo_update_provisionned_capacity">
-<code class="descclassname">api_etl.utils_dynamo.</code><code class="descname">dynamo_update_provisionned_capacity</code><span class="sig-paren">(</span><em>read</em>, <em>write</em>, <em>table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_dynamo.dynamo_update_provisionned_capacity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update a table provisioned throughput.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>table_name</strong> (<em>str</em>) &#8211; table name</li>
-<li><strong>read</strong> (<em>int</em>) &#8211; table read provisioned throughput</li>
-<li><strong>write</strong> (<em>int</em>) &#8211; table write provisioned throughput</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+  <div class="section" id="api-etl-utils-dynamo-module">
+<h1>api_etl.utils_dynamo module<a class="headerlink" href="#api-etl-utils-dynamo-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

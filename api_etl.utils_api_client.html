@@ -30,9 +30,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="api_transilien_doc  documentation" href="index.html"/>
         <link rel="next" title="api_etl.utils_misc module" href="api_etl.utils_misc.html"/>
         <link rel="prev" title="api_etl.utils_dynamo module" href="api_etl.utils_dynamo.html"/> 
@@ -90,8 +87,24 @@
 <li class="toctree-l1"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
 </ul>
 <p class="caption"><span class="caption-text">All modules:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api_etl.html">api_etl package</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="api_etl.html">api_etl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api_etl.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api_etl.extract_api.html">api_etl.extract_api module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.extract_schedule.html">api_etl.extract_schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.query_schedule.html">api_etl.query_schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.settings.html">api_etl.settings module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">api_etl.utils_api_client module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_dynamo.html">api_etl.utils_dynamo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_mongo.html">api_etl.utils_mongo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_rdb.html">api_etl.utils_rdb module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_secrets.html">api_etl.utils_secrets module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_etl.html#module-api_etl">Module contents</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -126,7 +139,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/api_etl.utils_api_client.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/api_etl.utils_api_client.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -141,7 +154,7 @@
 <p>Module used to query Transilien&#8217;s API.</p>
 <dl class="class">
 <dt id="api_etl.utils_api_client.ApiClient">
-<em class="property">class </em><code class="descclassname">api_etl.utils_api_client.</code><code class="descname">ApiClient</code><span class="sig-paren">(</span><em>user='tnhtn537'</em>, <em>password='d652euEU'</em>, <em>retry_timeout=20</em>, <em>core_url='http://api.transilien.com/'</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_api_client.ApiClient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">api_etl.utils_api_client.</code><code class="descname">ApiClient</code><span class="sig-paren">(</span><em>user='****'</em>, <em>password='****'</em>, <em>retry_timeout=20</em>, <em>core_url='http://api.transilien.com/'</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_api_client.ApiClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This class provide a client to process requests to transilien&#8217;s API.
 It provides methods to process either single queries, or asynchronous batch queries that rely on asyncio library.</p>
@@ -153,9 +166,15 @@ It provides methods to process either single queries, or asynchronous batch quer
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>station</strong> (<em>str/int</em><em> (</em><em>8 digits format</em><em>)</em><em></em>) &#8211; station you want to query (8 digits format)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>verbose</strong> &#8211; </li>
+<li><strong>extra_params</strong> &#8211; </li>
+<li><strong>station</strong> (<em>str/int (8 digits format)</em>) &#8211; station you want to query (8 digits format)</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str (xml answer)</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str (xml answer)</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -164,14 +183,23 @@ It provides methods to process either single queries, or asynchronous batch quer
 <dl class="method">
 <dt id="api_etl.utils_api_client.ApiClient.request_stations">
 <code class="descname">request_stations</code><span class="sig-paren">(</span><em>station_list</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_api_client.ApiClient.request_stations" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method process asynchronous batch queries. It will return answers with station ids so that you can identify stations answers.</p>
+<dd><p>This method process asynchronous batch queries.
+It will return answers with station ids so that you can identify stations answers.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>station_list</strong> (<em>list of str</em>) &#8211; list of station_ids in the 8 digits format used by transilien&#8217;s API to identify stations (warning: different than station ids in GTFS files that are 7 digits).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>station_list</strong> &#8211; list of station_ids in the 8 digits format used by transilien&#8217;s API</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of tuples (api_response, <a class="reference internal" href="api_etl.utils_dynamo.html#api_etl.utils_dynamo.RealTimeDeparture.station_id" title="api_etl.utils_dynamo.RealTimeDeparture.station_id">station_id</a>)</td>
+</tbody>
+</table>
+<p>to identify stations (warning: different than station ids in GTFS files that are 7 digits).
+:type station_list: list of str</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of tuples (api_response, station_id)</td>
 </tr>
 </tbody>
 </table>
