@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>api_etl.utils_secrets module &mdash; api_transilien_doc  documentation</title>
+  <title>api_etl.feature_vector module &mdash; api_transilien_doc  documentation</title>
   
 
   
@@ -32,7 +32,8 @@
   
     <link rel="top" title="api_transilien_doc  documentation" href="index.html"/>
         <link rel="up" title="api_etl package" href="api_etl.html"/>
-        <link rel="prev" title="api_etl.utils_rdb module" href="api_etl.utils_rdb.html"/> 
+        <link rel="next" title="api_etl.querier_realtime module" href="api_etl.querier_realtime.html"/>
+        <link rel="prev" title="api_etl.data_models module" href="api_etl.data_models.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -95,7 +96,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api_etl.data_models.html">api_etl.data_models module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_etl.extract_api.html">api_etl.extract_api module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_etl.extract_schedule.html">api_etl.extract_schedule module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_etl.feature_vector.html">api_etl.feature_vector module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">api_etl.feature_vector module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_etl.querier_realtime.html">api_etl.querier_realtime module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_etl.querier_schedule.html">api_etl.querier_schedule module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_etl.regressor_predict.html">api_etl.regressor_predict module</a></li>
@@ -104,7 +105,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api_etl.utils_api_client.html">api_etl.utils_api_client module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_etl.utils_misc.html">api_etl.utils_misc module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_etl.utils_rdb.html">api_etl.utils_rdb module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">api_etl.utils_secrets module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_etl.utils_secrets.html">api_etl.utils_secrets module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api_etl.html#module-api_etl">Module contents</a></li>
@@ -142,11 +143,11 @@
       
           <li><a href="api_etl.html">api_etl package</a> &raquo;</li>
       
-    <li>api_etl.utils_secrets module</li>
+    <li>api_etl.feature_vector module</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/api_etl.utils_secrets.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/api_etl.feature_vector.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -156,20 +157,74 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-api_etl.utils_secrets">
-<span id="api-etl-utils-secrets-module"></span><h1>api_etl.utils_secrets module<a class="headerlink" href="#module-api_etl.utils_secrets" title="Permalink to this headline">¶</a></h1>
-<p>This module contains a function to extract secrets from environment or a
-secret file.</p>
-<dl class="function">
-<dt id="api_etl.utils_secrets.get_secret">
-<code class="descclassname">api_etl.utils_secrets.</code><code class="descname">get_secret</code><span class="sig-paren">(</span><em>setting</em>, <em>my_secrets={'POSTGRES_DB_NAME': '****'</em>, <em>'AWS_SECRET_ACCESS_KEY': '****'</em>, <em>'AWS_DEFAULT_REGION': 'eu-west-1'</em>, <em>'API_PASSWORD': '****'</em>, <em>'API_USER': '****'</em>, <em>'MONGO_PASSWORD': '****'</em>, <em>'MONGO_DB_NAME': '****'</em>, <em>'MONGO_HOST': '****'</em>, <em>'AWS_ACCESS_KEY_ID': '****'</em>, <em>'MONGO_USER': '****'</em>, <em>'POSTGRES_USER': '****'</em>, <em>'POSTGRES_PASSWORD': '****'</em>, <em>'POSTGRES_HOST': '****'}</em>, <em>env=True</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.utils_secrets.get_secret" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tries to find secrets either in secret file, or in environment variables.
-env &gt; secret file
-Then, set it as environment variable and returns value.
-:param setting:
-:param my_secrets:
-:param env:</p>
+  <div class="section" id="module-api_etl.feature_vector">
+<span id="api-etl-feature-vector-module"></span><h1>api_etl.feature_vector module<a class="headerlink" href="#module-api_etl.feature_vector" title="Permalink to this headline">¶</a></h1>
+<p>In separate module to avoid cyclic import.</p>
+<dl class="class">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector">
+<em class="property">class </em><code class="descclassname">api_etl.feature_vector.</code><code class="descname">StopTimeFeatureVector</code><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector.between_stations_scheduled_trip_time">
+<code class="descname">between_stations_scheduled_trip_time</code><em class="property"> = None</em><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector.between_stations_scheduled_trip_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector.business_day">
+<code class="descname">business_day</code><em class="property"> = None</em><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector.business_day" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector.has_features">
+<code class="descname">has_features</code><span class="sig-paren">(</span><em>obj</em>, <em>*features</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector.has_features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector.is_complete">
+<code class="descname">is_complete</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector.is_complete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector.last_observed_delay">
+<code class="descname">last_observed_delay</code><em class="property"> = None</em><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector.last_observed_delay" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector.predicted_station_median_delay">
+<code class="descname">predicted_station_median_delay</code><em class="property"> = None</em><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector.predicted_station_median_delay" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector.rolling_trips_on_line">
+<code class="descname">rolling_trips_on_line</code><em class="property"> = None</em><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector.rolling_trips_on_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector.sequence_diff">
+<code class="descname">sequence_diff</code><em class="property"> = None</em><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector.sequence_diff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api_etl.feature_vector.StopTimeFeatureVector.set_features">
+<code class="descname">set_features</code><span class="sig-paren">(</span><em>obj</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.feature_vector.StopTimeFeatureVector.set_features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
+
+<dl class="function">
+<dt id="api_etl.feature_vector.has_features">
+<code class="descclassname">api_etl.feature_vector.</code><code class="descname">has_features</code><span class="sig-paren">(</span><em>obj</em>, <em>*features</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.feature_vector.has_features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="api_etl.feature_vector.is_complete">
+<code class="descclassname">api_etl.feature_vector.</code><code class="descname">is_complete</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.feature_vector.is_complete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="api_etl.feature_vector.set_features">
+<code class="descclassname">api_etl.feature_vector.</code><code class="descname">set_features</code><span class="sig-paren">(</span><em>obj</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#api_etl.feature_vector.set_features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 
@@ -180,8 +235,10 @@ Then, set it as environment variable and returns value.
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="api_etl.querier_realtime.html" class="btn btn-neutral float-right" title="api_etl.querier_realtime module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="api_etl.utils_rdb.html" class="btn btn-neutral" title="api_etl.utils_rdb module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="api_etl.data_models.html" class="btn btn-neutral" title="api_etl.data_models module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -1,0 +1,7 @@
+api_etl.feature_vector module
+=============================
+
+.. automodule:: api_etl.feature_vector
+    :members:
+    :undoc-members:
+    :show-inheritance:

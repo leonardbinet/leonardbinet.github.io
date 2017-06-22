@@ -6,14 +6,19 @@ Submodules
 
 .. toctree::
 
+   api_etl.builder_feature_matrix
+   api_etl.builder_feature_vector
+   api_etl.data_models
    api_etl.extract_api
    api_etl.extract_schedule
-   api_etl.query_schedule
+   api_etl.feature_vector
+   api_etl.querier_realtime
+   api_etl.querier_schedule
+   api_etl.regressor_predict
+   api_etl.regressor_train
    api_etl.settings
    api_etl.utils_api_client
-   api_etl.utils_dynamo
    api_etl.utils_misc
-   api_etl.utils_mongo
    api_etl.utils_rdb
    api_etl.utils_secrets
 

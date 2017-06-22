@@ -1,0 +1,7 @@
+api_etl.builder_feature_matrix module
+=====================================
+
+.. automodule:: api_etl.builder_feature_matrix
+    :members:
+    :undoc-members:
+    :show-inheritance:

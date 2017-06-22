@@ -1,0 +1,7 @@
+api_etl.regressor_predict module
+================================
+
+.. automodule:: api_etl.regressor_predict
+    :members:
+    :undoc-members:
+    :show-inheritance:
